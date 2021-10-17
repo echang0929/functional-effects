@@ -5,8 +5,8 @@ lazy val root = project
   .settings(
     name := "functional-effects",
     organization := "net.degoes",
-    scalaVersion := "2.12.11",
-    initialCommands in Compile in console :=
+    scalaVersion := "2.13.6",
+    Compile / console / initialCommands :=
       """|import zio._
          |import zio.Console._
          |implicit class RunSyntax[E, A](io: ZIO[ZEnv, E, A]){ def unsafeRun: A = Runtime.default.unsafeRun(io) }
@@ -26,12 +26,12 @@ libraryDependencies ++= Seq(
   "dev.zio" %% "zio-test"     % ZIOVersion % "test",
   "dev.zio" %% "zio-test-sbt" % ZIOVersion % "test",
   // URL parsing
-  "io.lemonlabs" %% "scala-uri" % "1.4.1"
+  "io.lemonlabs" %% "scala-uri" % "3.6.0"
 )
 
 testFrameworks := Seq(new TestFramework("zio.test.sbt.ZTestFramework"))
 
-scalacOptions in Compile in console := Seq(
+Compile / console / scalacOptions := Seq(
   "-Ypartial-unification",
   "-language:higherKinds",
   "-language:existentials",
